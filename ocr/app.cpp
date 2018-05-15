@@ -42,8 +42,12 @@ int main(int argc, char const *argv[]) {
     vector<Letter> letters;
     load_template(&letters, alphabet_length);
 
+    if(argc < 2){
+        printf("Usage: ./app <image>\n");
+        return -1;
+    }
     // load input
-    char const *image_input = "./data/input_5_OK.png";
+    char const *image_input = argv[1];//"./data/input_5_OK.png";
     vector< vector<int> > pixels;
     if (load_image(image_input, &pixels) != 0) {
         printf("Could not load input image: %s\n", image_input);
