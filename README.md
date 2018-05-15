@@ -14,5 +14,5 @@ The system requires libsmfl. On Ubuntu type:
 ```
   cd ocr
   make
-  ./app
+  ./app ./data/input_5_OK.png
 ```
