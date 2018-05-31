@@ -4,19 +4,19 @@
 #include <vector>
 
 #include "app.hpp"
-#include "Letter.h"
-#include "image_util.h"
-#include "processing.h"
+#include "lib/Letter.h"
+#include "lib/image_util.h"
+#include "lib/processing.h"
 #include "ocr.h"
-
-
-//using namespace std;
-
 
 /* 
  * Main entry point
+ * run_ocr is used in producer1 application to call the app function
  */
-int run_ocr(int argc, char const *argv[]) {
+#ifndef APP_HPP
+#define APP_HPP
+
+int run_ocr(int argc, char const *argv[]);
 
 
     /*****************************
@@ -114,3 +114,4 @@ int run_ocr(int argc, char const *argv[]) {
 
     return 0;
 }
+#endif // APP_HPP
