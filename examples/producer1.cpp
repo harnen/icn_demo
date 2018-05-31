@@ -25,9 +25,14 @@
 // #include <ndn-cxx/face.hpp>
 // #include <ndn-cxx/security/key-chain.hpp>
 
+#include "/home/chrisys/NDN/icn_demo/ocr/app.hpp"
 #include "stdio.h"
 #include "face.hpp"
 #include "security/key-chain.hpp"
+
+#include <fstream>
+#include <iostream>
+using namespace std;
 
 // Enclosing code in ndn simplifies coding (can also use `using namespace ndn`)
 namespace ndn {
@@ -77,12 +82,16 @@ private:
    	}
  
    	// here you can read from the command you executed until it ends
-   	while( NULL != fgets( string, sizeof( string ) - 1, stream ) )
+	ofstream myoutput;
+	myoutput.open("output");
+	
+   	while( NULL != fgets( string, sizeof( string ), stream ) )
    	{
       		// note the '\n' character will be stored in string[]
       		// the parentheses are used as a delimiter
-      		printf( "[popen] fread returned (%s)\n", string );
+      		myoutput << "[popen] fread returned" << string << "\n";
    	}
+	myoutput.close();
  
    	// since fgets returned NULL there are 2 options: EOF was found or an error
    	// occured (use ferror for the latter)
@@ -104,6 +113,8 @@ private:
    	}
  
    	printf( "[popen] end\n" );
+
+//Check if the "stream" file was output from this command. If yes, append it to the data packet.
 
     // Create Data packet
     shared_ptr<Data> data = make_shared<Data>();
