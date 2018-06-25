@@ -1,6 +1,6 @@
 /* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
-/*
- * Copyright (c) 2013-2018 Regents of the University of California.
+/**
+ * Copyright (c) 2013-2015 Regents of the University of California.
  *
  * This file is part of ndn-cxx library (NDN C++ library with eXperimental eXtensions).
  *
@@ -21,15 +21,19 @@
  * @author Alexander Afanasyev <http://lasr.cs.ucla.edu/afanasyev/index.html>
  */
 
+// correct way to include ndn-cxx headers
 #include <ndn-cxx/face.hpp>
 #include <ndn-cxx/security/key-chain.hpp>
+
+//#include "../src/face.hpp"
+//#include "../src/security/key-chain.hpp"
 
 #include <iostream>
 
 #include "ocr.h"
 // Enclosing code in ndn simplifies coding (can also use `using namespace ndn`)
 namespace ndn {
-// Additional nested namespaces can be used to prevent/limit name conflicts
+// Additional nested namespace could be used to prevent/limit name contentions
 namespace examples {
 
 class Producer : noncopyable
@@ -58,13 +62,21 @@ private:
       .appendVersion();  // add "version" component (current UNIX timestamp in milliseconds)
 
     static const std::string content = "HELLO KITTY";
-    run_ocr("./data/input_5_OK.png");
+
+    std::string img = interest.getName ().toUri ();
+    img.erase (0, 17);
+    img.insert (0, "./data/");
+//    std::cout << img << std::endl;
+    const char* img_s = (char*)img.c_str();
+//    printf(img_s);
+    std::string co = run_ocr(img_s);
+
 
     // Create Data packet
     shared_ptr<Data> data = make_shared<Data>();
     data->setName(dataName);
-//    data->setFreshnessPeriod(10_s); // 10 seconds
-    data->setContent(reinterpret_cast<const uint8_t*>(content.data()), content.size());
+    data->setFreshnessPeriod(time::seconds(10));
+    data->setContent(reinterpret_cast<const uint8_t*>(co.c_str()), co.size());
 
     // Sign Data packet with default identity
     m_keyChain.sign(*data);
@@ -100,6 +112,7 @@ main(int argc, char** argv)
   ndn::examples::Producer producer;
   try {
     producer.run();
+    printf("executing...");
   }
   catch (const std::exception& e) {
     std::cerr << "ERROR: " << e.what() << std::endl;

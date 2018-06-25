@@ -341,11 +341,13 @@ std::string run_ocr(char const* image_input){
 
     // print result
     printf("\nOCR output: ");
+    response.append("OCR output: ");
     for (int i = 0; i < length; i++) {
         printf("%c", recognised_letters[i]);
+	response = response + recognised_letters[i];
     }
     printf("\n");
-
+    std::cout << response << std::endl;
 
     // free mem
     pixels.clear();

@@ -36,8 +36,8 @@ public:
   void
   run()
   {
-    Interest interest(Name("/example/testApp/randomData"));
-    interest.setInterestLifetime(2_s); // 2 seconds
+    Interest interest(Name("/example/testApp/input_2.png"));
+//    interest.setInterestLifetime(2_s); // 2 seconds
     interest.setMustBeFresh(true);
 
     m_face.expressInterest(interest,
