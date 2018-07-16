@@ -65,7 +65,7 @@ private:
 
     std::string img = interest.getName ().toUri ();
     img.erase (0, 17);
-    img.insert (0, "./data/");
+    img.insert (0, "../data/");
 //    std::cout << img << std::endl;
     const char* img_s = (char*)img.c_str();
 //    printf(img_s);
