@@ -42,7 +42,7 @@ public:
   void
   run()
   {
-    m_face.setInterestFilter("/example/testApp",
+    m_face.setInterestFilter("/exec/testApp",
                              bind(&Producer::onInterest, this, _1, _2),
                              RegisterPrefixSuccessCallback(),
                              bind(&Producer::onRegisterFailed, this, _1, _2));

@@ -13,6 +13,6 @@ consumer: consumer.cpp
 	g++ -o ./build/consumer consumer.cpp -lndn-cxx -lboost_system $(CPP_FLAGS)
 
 clean: 
-	rm producer consumer
+	rm ./build/producer ./build/consumer
 
 

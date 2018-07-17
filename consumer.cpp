@@ -36,7 +36,7 @@ public:
   void
   run()
   {
-    Interest interest(Name("/example/testApp/input_2.png"));
+    Interest interest(Name("/exec/testApp/input_2.png"));
 //    interest.setInterestLifetime(2_s); // 2 seconds
     interest.setMustBeFresh(true);
 
