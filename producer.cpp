@@ -64,7 +64,7 @@ private:
     static const std::string content = "HELLO KITTY";
 
     std::string img = interest.getName ().toUri ();
-    img.erase (0, 17);
+    img.erase (0, 13);
     img.insert (0, "../data/");
 //    std::cout << img << std::endl;
     const char* img_s = (char*)img.c_str();
