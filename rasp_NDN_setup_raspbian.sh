@@ -39,13 +39,13 @@ sudo sysctl vm.vfs_cache_pressure=60
 
 wget https://github.com/named-data/ndn-cxx/archive/ndn-cxx-0.5.1.tar.gz
 wget https://github.com/named-data/NFD/archive/NFD-0.5.1.tar.gz
-wget https://sourceforge.net/projects/boost/files/boost/1.61.0/boost_1_61_0.tar.bz2
+#wget https://sourceforge.net/projects/boost/files/boost/1.61.0/boost_1_61_0.tar.bz2
 tar xvzf ndn-cxx-0.5.1.tar.gz
 tar xvzf NFD-0.5.1.tar.gz
-tar xvjf boost_1_61_0.tar.bz2
-cd boost_1_61_0
-./bootstrap.sh
-./b2
+#tar xvjf boost_1_61_0.tar.bz2
+#cd boost_1_61_0
+#./bootstrap.sh
+#./b2
 
 cd ../ndn-cxx-ndn-cxx-0.5.1
 sudo apt-get install libopenssl

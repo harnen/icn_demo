@@ -38,6 +38,8 @@ public:
   {
     Interest interest(Name("/exec/OCR/192.168.10.233/pic1531905916597.jpg"));
     interest.setInterestLifetime(50_s); // 2 seconds
+//    Interest interest(Name("/exec/testApp/input_2.png"));
+//    interest.setInterestLifetime(2_s); // 2 seconds
     interest.setMustBeFresh(true);
 
     m_face.expressInterest(interest,
