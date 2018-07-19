@@ -6,8 +6,8 @@ SFML = -lsfml-graphics -lsfml-window -lsfml-system
 
 all: producer consumer
 
-producer: producer.cpp  ocr.cpp
-	g++ -o ./build/producer producer.cpp ocr.cpp -lndn-cxx -lboost_system ./lib/Letter.cpp ./lib/image_util.cpp ./lib/processing.cpp $(CPP_FLAGS) $(LINK_FLAGS) $(SFML)
+producer: producer.cpp  ocr.cpp tess.cpp
+	g++ -o ./build/producer producer.cpp ocr.cpp tess.cpp -llept -ltesseract -lndn-cxx -lboost_system ./lib/Letter.cpp ./lib/image_util.cpp ./lib/processing.cpp $(CPP_FLAGS) $(LINK_FLAGS) $(SFML)
 	
 consumer: consumer.cpp
 	g++ -o ./build/consumer consumer.cpp -lndn-cxx -lboost_system $(CPP_FLAGS)
