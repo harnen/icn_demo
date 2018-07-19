@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <LinearLayout
+      style="@style/default_linear_layout_padding"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:layout_marginTop="60dp">
+
+
+    <LinearLayout android:id="@+id/wi_status_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+      <TextView style="?android:listSeparatorTextViewStyle"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/wi_timers"
+          />
+
+      <CheckBox
+          android:id="@+id/checkbox_wi"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:checked="false"
+          android:onClick="onCheckboxClicked"
+          android:text="@string/checkbox_bt"
+          android:textColor="?attr/colorAccent"/>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+        <TextView style="@style/main_fragment_list_title"
+            android:text="@string/timer_wifi_scan"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <EditText
+            android:id="@+id/wi_scan_input"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:inputType="text"
+             />
+      </LinearLayout>
+
+      <!--<LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+        <TextView style="@style/main_fragment_list_title"
+            android:text="@string/timer_bt_idle"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <EditText
+            android:id="@+id/bt_idle_input"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:inputType="text"/>
+      </LinearLayout>-->
+
+
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/wifi_timers_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+      <TextView style="?android:listSeparatorTextViewStyle"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/wifi_timers"
+          />
+
+      <CheckBox
+          android:id="@+id/checkbox_wd"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:checked="false"
+          android:onClick="onCheckboxClicked"
+          android:text="@string/checkbox_wifi"
+          android:textColor="?attr/colorAccent"/>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:orientation="horizontal">
+
+        <TextView
+            style="@style/main_fragment_list_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/timer_wifi_waittime" />
+
+        <EditText
+            android:id="@+id/wifi_waittime_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColor="?attr/colorAccent" />
+      </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+        <TextView style="@style/main_fragment_list_title"
+            android:text="@string/timer_wifi_peersuccess"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <EditText
+            android:id="@+id/wifi_peer_input"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:inputType="text"
+            android:textColor="?attr/colorAccent" />/>
+      </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+        <TextView style="@style/main_fragment_list_title"
+            android:text="@string/timer_wifi_peerfailed"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <EditText
+            android:id="@+id/wifi_peer_failed_input"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:inputType="text"
+            android:textColor="?attr/colorAccent" />/>
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+        <TextView style="@style/main_fragment_list_title"
+            android:text="@string/timer_wifi_servicefailed"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <EditText
+            android:id="@+id/wifi_sd_input"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:inputType="text"
+            android:textColor="?attr/colorAccent" />/>
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+        <TextView style="@style/main_fragment_list_title"
+            android:text="@string/timer_wifi_servicesuccess"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <EditText
+            android:id="@+id/wifi_sd_failed_input"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:inputType="text"
+            android:textColor="?attr/colorAccent" />/>
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+        <TextView style="@style/main_fragment_list_title"
+            android:text="@string/timer_wifi_hsrestart"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <EditText
+            android:id="@+id/wifi_hs_restart"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:inputType="text"
+            android:textColor="?attr/colorAccent" />/>
+      </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/bt_status_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+      <TextView style="?android:listSeparatorTextViewStyle"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/bluetooth_timers"
+          />
+
+      <CheckBox
+          android:id="@+id/checkbox_bt"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:checked="false"
+          android:onClick="onCheckboxClicked"
+          android:text="@string/checkbox_bt" />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+        <TextView style="@style/main_fragment_list_title"
+            android:text="@string/timer_bt_scan"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <EditText
+            android:id="@+id/bt_scan_input"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:inputType="text"
+            android:textColor="?attr/colorAccent" />/>
+      </LinearLayout>
+
+      <!--<LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+        <TextView style="@style/main_fragment_list_title"
+            android:text="@string/timer_bt_idle"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <EditText
+            android:id="@+id/bt_idle_input"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:inputType="text"/>
+      </LinearLayout>-->
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+        <TextView style="@style/main_fragment_list_title"
+            android:text="@string/timer_bt_advfg"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <EditText
+            android:id="@+id/bt_advfg_input"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:inputType="text"
+            android:textColor="?attr/colorAccent" />/>
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+        <TextView style="@style/main_fragment_list_title"
+            android:text="@string/timer_bt_advbg"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <EditText
+            android:id="@+id/bt_advbg_input"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:inputType="text"
+            android:textColor="?attr/colorAccent" />/>
+      </LinearLayout>
+
+    </LinearLayout>
+
+  </LinearLayout>
+</ScrollView>

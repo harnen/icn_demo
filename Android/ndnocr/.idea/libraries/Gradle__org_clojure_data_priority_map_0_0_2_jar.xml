@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.clojure:data.priority-map:0.0.2@jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.clojure/data.priority-map/0.0.2/f13311d5a510cdaaa230add17b373c9e50395d3e/data.priority-map-0.0.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.clojure/data.priority-map/0.0.2/348cf017da89b4e17856b1e7e42a5a3860fb653f/data.priority-map-0.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

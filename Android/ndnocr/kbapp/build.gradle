@@ -1,0 +1,160 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 27
+
+
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath false
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            jniDebuggable true
+        }
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs "src/main/java"
+            res.srcDirs "src/main/res"
+            jniLibs.srcDir 'src/main/libs'
+            jni.srcDirs = [] //disable automatic ndk-build call
+        }
+        androidTest.setRoot('tests')
+        androidTest.java.srcDirs = ['tests/src']
+    }
+    splits {
+        abi {
+            enable true // enable ABI split feature to create one APK per ABI
+            universalApk false // don't generate an additional APK that targets all the ABIs
+        }
+    }
+
+    // map for the version code
+    // versionCode digit for each supported ABI, with 64bit>32bit and x86>armeabi-*
+    project.ext.versionCodes = ['armeabi'    : 1,
+                                'armeabi-v7a': 2,
+                                'arm64-v8a'  : 3,
+                                'mips'       : 5,
+                                'mips64'     : 6,
+                                'x86'        : 8,
+                                'x86_64'     : 9]
+
+    task copyNdnCxxHeaders(type: Copy) {
+        from('src/main/jni/ndn-cxx/src') {
+            include '**/*.hpp'
+        }
+        into 'build/generated/source/include/ndn-cxx'
+    }
+
+    // call regular ndk-build(.cmd) script from app directory
+    task ndkBuild(type: Exec) {
+        dependsOn copyNdnCxxHeaders
+        def args = [getNdkBuildCmd(), '-C', file('src/main').absolutePath]
+
+        if (System.env.NDK_BUILD_PARALLEL != null) {
+            args.add("-j" + System.env.NDK_BUILD_PARALLEL)
+        } else {
+            args.add("-j" + Runtime.runtime.availableProcessors())
+        }
+
+        if (System.env.NDK_BUILD_ABI != null) {
+            args.add("APP_ABI=" + System.env.NDK_BUILD_ABI)
+        }
+
+        if (System.env.NDK_DEBUG != null) {
+            args.add("NDK_DEBUG=1")
+        }
+        commandLine args
+    }
+
+    tasks.withType(JavaCompile) {
+        compileTask -> compileTask.dependsOn ndkBuild
+    }
+
+    task cleanNative(type: Exec) {
+        commandLine getNdkBuildCmd(), '-C', file('src/main').absolutePath, 'clean'
+    }
+
+    clean.dependsOn cleanNative
+
+    /*externalNativeBuild {
+        cmake {
+            path '../../../ndn/ccn-lite/src/ccnl-android/native/CMakeLists.txt'
+        }
+    }*/
+}
+
+def getNdkBuildCmd() {
+    def ndk_build = getNdkDir() + "/ndk-build"
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        ndk_build += ".cmd"
+    }
+
+    return ndk_build
+}
+
+
+def getNdkDir() {
+    if (System.env.ANDROID_NDK_ROOT != null)
+        return System.env.ANDROID_NDK_ROOT
+
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    def ndk_dir = properties.getProperty('ndk.dir', null)
+    if (ndk_dir == null) {
+        throw new GradleException("NDK location not found. Define location with ndk.dir in the local.properties file or with an ANDROID_NDK_ROOT environment variable.")
+    }
+    return ndk_dir
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile('com.intel.jndn.management:jndn-management:1.1.0') {
+        exclude group: 'net.named-data', module: 'jndn'
+    }
+
+    compile files('libs/jndn-0.15.jar')
+    //compile files('libs/sqlite-jdbc-3.21.0.jar')
+    //compile 'org.sqldroid:sqldroid:1.0.3'
+    compile 'net.grandcentrix.tray:tray:0.12.0'
+
+    compile 'net.named-data.jndn-xx:jndn-xx-util:0.0.1'
+    compile 'com.google.android.gms:play-services:11.0.4'
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    compile 'joda-time:joda-time:2.7'
+    compile 'com.google.protobuf:protobuf-java:2.6.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.2'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    compile 'android.arch.persistence.room:runtime:1.0.0-alpha8'
+    compile 'android.arch.persistence.room:rxjava2:1.0.0-alpha8'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.0.0-alpha8'
+
+}

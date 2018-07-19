@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: net.grandcentrix.tray:tray-0.12.0">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/tray-0.12.0.aar/5fbc9773cef8a87c8435b970d7b8c36b/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/tray-0.12.0.aar/5fbc9773cef8a87c8435b970d7b8c36b/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.grandcentrix.tray/tray/0.12.0/3296a6ae8ef0b89d56e4cb5fae3ef254dcb17c0d/tray-0.12.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
