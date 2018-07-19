@@ -31,6 +31,7 @@
 #include <iostream>
 
 #include "ocr.h"
+#include "tess.h"
 // Enclosing code in ndn simplifies coding (can also use `using namespace ndn`)
 namespace ndn {
 // Additional nested namespace could be used to prevent/limit name contentions
@@ -69,7 +70,7 @@ private:
 //    std::cout << img << std::endl;
     const char* img_s = (char*)img.c_str();
 //    printf(img_s);
-    std::string co = run_ocr(img_s);
+    std::string co = run_tess(img_s);
 
 
     // Create Data packet
