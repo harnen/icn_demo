@@ -38,6 +38,8 @@ public:
   afterReceiveInterest(const Face& inFace, const Interest& interest,
                        const shared_ptr<pit::Entry>& pitEntry) override;
 
+int iter = 0;
+
 protected:
   RoundRobinStrategyBase(Forwarder& forwarder);
 };

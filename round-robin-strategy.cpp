@@ -44,42 +44,62 @@ RoundRobinStrategyBase::afterReceiveInterest(const Face& inFace, const Interest&
                                             const shared_ptr<pit::Entry>& pitEntry)
 {
 //main difference is within this method
+
   if (hasPendingOutRecords(*pitEntry)) {
     // not a new Interest, waiting for data on this Interest, don't forward
     return;
   }
-//Still relevant, shouldn't be commented I think, as it is needed to not forward more
+
 //But...we want the interests to be forwarded to a new node each time, right? 
 
 
-  const fib::Entry& fibEntry = this->lookupFib(*pitEntry);
-  const fib::NextHopList& nexthops = fibEntry.getNextHops();
+//  const fib::Entry& fibEntry = this->lookupFib(*pitEntry);
+//  const fib::NextHopList& nexthops = fibEntry.getNextHops();
 
 //Does this strategy need a for loop? No. The "it" iterator needs to be tracked and iterated,
 //but only if the new interest has not been forwarded earlier (see below), and not to the same
 //face.
 //  for (fib::NextHopList::const_iterator it = nexthops.begin(); it != nexthops.end(); ++it) {
 //  "it" is iterated from the last time
-    fib::NextHopList::const_iterator it;
-    Face& outFace = it->getFace();
-    if (!wouldViolateScope(inFace, interest, outFace) &&
-        canForwardToLegacy(*pitEntry, outFace)) {
-	int out_face= outFace.getId();
-        std::cout << out_face << std::endl;
+    const fib::Entry& fibEntry = this->lookupFib(*pitEntry);
+    const fib::NextHopList& nexthops = fibEntry.getNextHops();
+    int hop_no = static_cast<int>(nexthops.size());
+    fib::NextHopList::const_iterator it = nexthops.begin();
+
+//    Face& outFace = it->getFace();
+//    if (!wouldViolateScope(inFace, interest, outFace) &&
+//        canForwardToLegacy(*pitEntry, outFace)) {
+//	int out_face= outFace.getId();
+//        std::cout << out_face << std::endl;
 
 //    make sure it is iterated here and that it does not pass nexthops.end()
 //    it only needs to be reset to nexthops.begin() if it is equal to nexthops.end
-      if (it < nexthops.end()){
-        ++it;
+      if (it <= nexthops.end()){
+	// while loop is used to iterate the fib::NextHopList::const_iterator it up to the 
+	//current NextHop, indicated by int iter. fib::NextHopList::const_iterator it couldn't
+	//be iterated by itself for a specific number of times due to the type mismatch between
+	//fib::NextHopList::const_iterator and int.
+	for(int i=0; i<iter%hop_no; ++i){
+	  ++it;
+	}
+	std::cout << "Number of hop selected from FIB:" << iter%hop_no << std::endl;
+	++iter;
+	std::cout << "Strategy used" << iter << "times." << std::endl;
+
       }
       else{
         const fib::NextHopList& nexthops = fibEntry.getNextHops();
         it = nexthops.begin();
       }
 
-      this->sendInterest(pitEntry, outFace, interest);
-      return;
-    } //if
+      Face& outFace = it->getFace();
+      if (!wouldViolateScope(inFace, interest, outFace) &&
+        canForwardToLegacy(*pitEntry, outFace)) {
+        int out_face= outFace.getId();
+        std::cout << "Face ID selected:" << out_face << std::endl;
+
+	this->sendInterest(pitEntry, outFace, interest);
+      } //if
 //  } //for
 
 
@@ -88,14 +108,18 @@ RoundRobinStrategyBase::afterReceiveInterest(const Face& inFace, const Interest&
 //This shall not be called if the pending Interest has been forwarded earlier, 
 //and does not need to be resent now:
   this->rejectPendingInterest(pitEntry);
+  return;
 }
 
-NFD_LOG_INIT("RoundRobinStrategy")
 NFD_REGISTER_STRATEGY(RoundRobinStrategy);
 
 RoundRobinStrategy::RoundRobinStrategy(Forwarder& forwarder, const Name& name)
   : RoundRobinStrategyBase(forwarder)
 {
+//  const fib::Entry& fibEntry = this->lookupFib(*pitEntry);
+//  const fib::NextHopList& nexthops = fibEntry.getNextHops();
+//  fib::NextHopList::const_iterator it = nexthops.begin();
+
   ParsedInstanceName parsed = parseInstanceName(name);
   if (!parsed.parameters.empty()) {
     BOOST_THROW_EXCEPTION(std::invalid_argument("RoundRobinStrategy does not accept parameters"));
