@@ -75,7 +75,7 @@ public class Config
 
 	public static final String SSID = "NDNOCR";
 
-	public static final String GW_IP ="192.168.10.110";
+	public static final String GW_IP ="192.168.0.1";
 
 	public static final String CLIENT_IP ="10.0.0.10";
 
