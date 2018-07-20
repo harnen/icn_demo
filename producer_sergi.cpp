@@ -31,6 +31,7 @@
 #include <iostream>
 
 #include "ocr.h"
+#include "tess.h"
 // Enclosing code in ndn simplifies coding (can also use `using namespace ndn`)
 namespace ndn {
 // Additional nested namespace could be used to prevent/limit name contentions
@@ -62,7 +63,7 @@ private:
    myFile.write(reinterpret_cast<const char *>(data.getContent().value()),data.getContent().value_size());
    //myFile.write(data.getContent().value());
    myFile.close();
-   std::string res = run_ocr(filename.c_str());
+   std::string res = run_tess(filename.c_str());
    //Interest result(Name("/"+data.getName().get(0).toUri()+"/result/"+res));
    std::map<std::string, Name>::iterator it = pendingInterest.find(data.getName().get(1).toUri()) ;
    if(it!=pendingInterest.end()){
