@@ -15,4 +15,20 @@ The system requires libsmfl. On Ubuntu type:
   cd ocr
   make
   ./app ./data/input_5_OK.png
+```  
+## Dnsmasq config
+Just add this line to the file /etc/dnsmasq.conf with the name of the script that automatically creates a face towards the Android client in the AP.
+
 ```
+dhcp-script=/home/pi/icn_demo/dhcp_log.sh
+
+```  
+
+## Android app
+The NDN OCR Android app for the demo can be found in the following repository:
+
+https://github.com/srene/icn_demo_Android
+
+but also in Google Play:
+
+https://play.google.com/store/apps/details?id=uk.ac.ucl.ndnocr

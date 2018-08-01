@@ -31,6 +31,7 @@
 #include <iostream>
 
 #include "ocr.h"
+#include "tess.h"
 // Enclosing code in ndn simplifies coding (can also use `using namespace ndn`)
 namespace ndn {
 // Additional nested namespace could be used to prevent/limit name contentions
@@ -64,12 +65,12 @@ private:
     static const std::string content = "HELLO KITTY";
 
     std::string img = interest.getName ().toUri ();
-    img.erase (0, 17);
+    img.erase (0, 13);
     img.insert (0, "../data/");
 //    std::cout << img << std::endl;
     const char* img_s = (char*)img.c_str();
 //    printf(img_s);
-    std::string co = run_ocr(img_s);
+    std::string co = run_tess(img_s);
 
 
     // Create Data packet
