@@ -1,4 +1,4 @@
-CPP_FLAGS = -std=c++11 -lpthread -I./ndn-cxx-ndn-cxx-0.5.1/build -fPIC -Ilib
+CPP_FLAGS = -std=c++14 -lpthread -I./ndn-cxx-ndn-cxx-0.5.1/build -fPIC -Ilib
 LINK_FLAGS = 
 DEPS = *.hpp
 
