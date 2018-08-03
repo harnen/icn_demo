@@ -21,8 +21,8 @@
 
 #nfd-stop
 #sleep 5
-nfd-start
-sleep 5
+#nfd-start
+#sleep 5
 nfdc face create tcp://raspberryW1
 sleep 2
 nfdc face create tcp://raspberryW2
