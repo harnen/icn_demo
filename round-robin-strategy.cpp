@@ -99,6 +99,7 @@ RoundRobinStrategyBase::afterReceiveInterest(const Face& inFace, const Interest&
         std::cout << "Face ID selected:" << out_face << std::endl;
 
 	this->sendInterest(pitEntry, outFace, interest);
+	return;
       } //if
 //  } //for
 
