@@ -55,17 +55,17 @@ private:
   void
   onData(const Interest& interest, const Data& data)
   {
-   std::cout << "Data received " << data.getName().get(1) <<std::endl;
+   std::cout << "Data received " << data.getName().get(2) <<std::endl;
 //   data.getContent();
    std::ofstream myFile;
-   std::string filename = "./data/"+data.getName().get(1).toUri();
+   std::string filename = "/home/pi/icn_demo/data/"+data.getName().get(2).toUri();
    myFile.open(filename, std::ofstream::binary | std::ofstream::out);
    myFile.write(reinterpret_cast<const char *>(data.getContent().value()),data.getContent().value_size());
    //myFile.write(data.getContent().value());
    myFile.close();
    std::string res = run_tess(filename.c_str());
    //Interest result(Name("/"+data.getName().get(0).toUri()+"/result/"+res));
-   std::map<std::string, Name>::iterator it = pendingInterest.find(data.getName().get(1).toUri()) ;
+   std::map<std::string, Name>::iterator it = pendingInterest.find(data.getName().get(2).toUri()) ;
    if(it!=pendingInterest.end()){
 //   	m_face.expressInterest(result,
 //		   bind(&Producer::onData, this, _1, _2),
@@ -76,7 +76,7 @@ private:
     // Create Data packet
     shared_ptr<Data> data = make_shared<Data>();
     data->setName(dataName);
-    data->setFreshnessPeriod(time::seconds(10));
+    data->setFreshnessPeriod(time::seconds(20));
     data->setContent(reinterpret_cast<const uint8_t*>(res.c_str()), res.size());
 
     // Sign Data packet with default identity
@@ -111,7 +111,7 @@ private:
   {
     std::cout << "<< I: " << interest << std::endl;
 
-    Interest imgInterest(Name("/"+interest.getName().get(2).toUri()+"/"+interest.getName().get(3).toUri()));
+    Interest imgInterest(Name("/pic/"+interest.getName().get(2).toUri()+"/"+interest.getName().get(3).toUri()));
     imgInterest.setInterestLifetime(20_s); // 10 seconds
     imgInterest.setMustBeFresh(true);
     m_face.expressInterest(imgInterest,
