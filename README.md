@@ -6,7 +6,7 @@ We implement and evaluate a simple Optical Character Recognition (OCR) algorithm
 programs.
 
 ## Requirements
-The system requires libsmfl. On Ubuntu type:
+The system requires libsfml. On Ubuntu type:
 `` sudo apt-get install libsfml-dev``
 
 ## Compilation
